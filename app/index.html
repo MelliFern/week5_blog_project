@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Hello From Html</title>
+</head>
+<body data-ng-app="blogsApp">
+  <main data-ng-controller="blogsController" data-ng-init="getAll()">
+    <h1>Blogs:</h1>
+    <form name="newBlogName">
+      <label for="newTitle">Blog Title</label>
+      <input type="text" id="newBlogTitle" data-ng-model="newBlog.title">
+      <button type="submit" data-ng-click="create(newBlog)">Save New Blog</button>
+    </form> 
+    <ul data-ng-repeat="blog in blogs">
+      <li>
+        {{blog.title}}
+
+        <form data-ng-if="blog.editing">
+          <label for="blog{{blog._id}}">Edit Blog</label>
+          <input type="text" id="blog{{blog._id}}" data-ng-model="blog.title">
+          <button type="submit" data-ng-click="save(blog)">Save Changes</button>
+          <button type="button" data-ng-click="toggleEdit(blog)">Cancel</button>
+        </form> 
+
+        <button data-ng-click="toggleEdit(blog)" data-ng-if="!blog.editing">Edit Blog</button> 
+
+        <button data-ng-click="remove(blog)">Delete Blog</button> 
+      </li>
+    </ul>
+  </main>
+
+  <script src="bundle.js"></script>
+</body>
+</html>
